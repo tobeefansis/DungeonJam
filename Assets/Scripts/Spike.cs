@@ -1,41 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Spike : MonoBehaviour
 {
-	public int damage;
-	public GameObject BamObject;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] int damage;
+    [SerializeField] GameObject effectPrefub;
+    [SerializeField] float TimeToDestroyEffect;
+    
+    void OnTriggerEnter2D(Collider2D coll)
     {
-        
+        var health = coll.GetComponent<Health>();
+        if (health)
+        {
+            health.AddDamage(damage);
+            Bam();
+        }
     }
-	void OnTriggerEnter2D ( Collider2D coll )
-	{
-		if ( !coll.isTrigger ) // чтобы пуля не реагировала на триггер
-		{
-			switch ( coll.tag )
-			{
-				case "Player":
-					coll.GetComponent<Player> ( ).healthSystem.AddDamahe ( damage );
-					print("bam");
-					Bam();
-					break;
-				case "Enemy_2":
-					// что-то еще...
-					break;
-			}
 
-		}
-	}
-	void Bam()
-	{
-		BamObject.SetActive(true);
-	}
-	// Update is called once per frame
-	void Update()
+    void Bam()
     {
-        
+        if (!effectPrefub) return;
+
+        var t = Instantiate(effectPrefub, transform.position, Quaternion.identity);
+        Destroy(t, TimeToDestroyEffect);
     }
 }

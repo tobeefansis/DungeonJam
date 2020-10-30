@@ -4,19 +4,14 @@ using System.Collections.Generic;
 
 public class Generator : MonoBehaviour
 {
-    public List<Chanck> chancks = new List<Chanck>();
-    public List<Chanck> chanckPrefubs = new List<Chanck>();
-    public int maxCount;
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
+    [SerializeField] Transform target;
+    [SerializeField] List<Chanck> chancks = new List<Chanck>();
+    [SerializeField] List<Chanck> chanckPrefubs = new List<Chanck>();
+    [SerializeField] int maxCount;
+    
     void Update()
     {
-        if (GameManager.player.position.x >= chancks[chancks.Count - 1].start.position.x)
+        if (target.position.y >= chancks[chancks.Count - 1].start.position.y)
         {
             AddChanck();
         }
@@ -30,7 +25,7 @@ public class Generator : MonoBehaviour
              chancks[chancks.Count - 1].end.position - chanckPrefub.start.localPosition,
               new Quaternion());
         chancks.Add(t);
-        if (chancks.Count> maxCount)
+        if (chancks.Count > maxCount)
         {
             Destroy(chancks[0].gameObject);
             chancks.RemoveAt(0);
