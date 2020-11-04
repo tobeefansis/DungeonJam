@@ -8,13 +8,23 @@ public class Spike : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] GameObject effectPrefub;
     [SerializeField] float TimeToDestroyEffect;
-    
+
     void OnTriggerEnter2D(Collider2D coll)
     {
         var health = coll.GetComponent<Health>();
         if (health)
         {
-            health.AddDamage(damage);
+            health.Value -= damage;
+            Bam();
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D coll)
+    {
+        var health = coll.GetComponent<Health>();
+        if (health)
+        {
+            health.Value -= damage;
             Bam();
         }
     }

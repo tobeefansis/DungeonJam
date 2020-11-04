@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : Singleton<PauseManager>
 {
     [SerializeField] List<IPause> PauseObjects = new List<IPause>();
     [SerializeField] UnityEvent OnPause;
     [SerializeField] UnityEvent OnResume;
+
     private void Start()
     {
         Time.timeScale = 1;
@@ -16,6 +18,8 @@ public class PauseManager : Singleton<PauseManager>
             .Select(n => n.GetComponent<IPause>())
             .Where(n => n != null)
             .ToList();
+        PauseObjects.ForEach(n => n.Pause());
+        Time.timeScale = 0;
     }
 
     public void Pause()
@@ -30,5 +34,10 @@ public class PauseManager : Singleton<PauseManager>
         PauseObjects.ForEach(n => n.Resume());
         OnResume.Invoke();
         Time.timeScale = 1;
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene("Game");
     }
 }

@@ -19,6 +19,8 @@ public class SmartCam : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Cam.position = (Vector3)Vector2.Lerp(Cam.position, Target.position, 0.3f) + offset;
+        var pos = (Vector3)Vector2.Lerp(Cam.position, Target.position, 0.3f) + offset;
+        pos.x = 0;
+        Cam.position = pos;
     }
 }

@@ -17,16 +17,8 @@ public class Health : MonoBehaviour
         get => value;
         set
         {
-            if (value > this.value)
-            {
-                var t = value - this.value;
-                onAddHealth.Invoke(t);
-            }
-            else
-            {
-                var t = value - this.value;
-                onAddDamage.Invoke(t);
-            }
+            var t = value - this.value;
+           
 
             if (value > MaxValue)
             {
@@ -35,14 +27,21 @@ public class Health : MonoBehaviour
             else
             {
                 this.value = value;
-                if (value < 0)
+                if (value <= 0)
                 {
                     OnDead.Invoke();
                    
                     this.value = 0;
                 }
             }
-
+            if (value > this.value)
+            {
+                onAddHealth.Invoke(t);
+            }
+            else
+            {
+                onAddDamage.Invoke(t);
+            }
         }
     }
 

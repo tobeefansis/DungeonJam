@@ -6,13 +6,13 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class Movment : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb;
     [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] GrounsCheck grounsCheck;
     [SerializeField] bool isToch;
     [SerializeField] float speed;
     [SerializeField] Vector2 pos;
@@ -33,7 +33,7 @@ public class Movment : MonoBehaviour
             Vector3 vector2 = Camera.main.ScreenToWorldPoint(pos);
 
             Vector2 ordinate = new Vector2(0, 1f);
-            Vector2 vecAB = vector2 - vector;
+            Vector2 vecAB = vector - vector2;
             float angle = Vector2.Angle(ordinate, vecAB);
 
             if (vecAB.x > 0)
@@ -63,7 +63,7 @@ public class Movment : MonoBehaviour
 
             lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, vector + (vector2 - vector) * -1);
+            lineRenderer.SetPosition(1, vector2);
             lineRenderer.enabled = true;
 
         }
@@ -75,7 +75,7 @@ public class Movment : MonoBehaviour
                 GetComponent<Renderer>().enabled = false;
                 Vector2 vector = transform.position;
                 Vector2 vector2 = Camera.main.ScreenToWorldPoint(pos);
-                rb.AddForce((vector2 - vector) * speed * -1);
+                rb.AddForce((vector2 - vector) * speed);
                 isToch = false;
 
                 Vector3 theScale = transform.localScale;

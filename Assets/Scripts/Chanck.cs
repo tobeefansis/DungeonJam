@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Chanck : MonoBehaviour
 {
-    public Transform start, end;
-    // Use this for initialization
-  
+    public Transform start;
+    public Transform end;
 }

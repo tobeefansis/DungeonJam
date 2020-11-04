@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class TochEventObject : MonoBehaviour
@@ -14,12 +15,21 @@ public class TochEventObject : MonoBehaviour
             OnPlayerEnter?.Invoke(collision.gameObject);
             if (DestroyAfterToch)
             {
-                Destroying  (gameObject);
+                Destroying(gameObject);
             }
         }
     }
-    public  void Destroying(GameObject game)
+    public void Destroying(GameObject game)
     {
         Destroy(game);
+    }
+
+    public void AddHealth()
+    {
+        var health =FindObjectOfType<PlayerHealth>();
+        if (health)
+        {
+            health.Value++;
+        }
     }
 }

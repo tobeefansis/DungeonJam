@@ -13,9 +13,10 @@ public class Coin : TochEventObject
 
     private void AddCoin(GameObject obj)
     {
-        if (PlayerSettings.InstanceExists)
+        var wallet = obj.GetComponent<Wallet>();
+        if (wallet)
         {
-            PlayerSettings.Instance.AddMoney(count);
+            wallet.Value += count;
         }
     }
 }

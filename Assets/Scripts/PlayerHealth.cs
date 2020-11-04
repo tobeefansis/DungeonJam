@@ -6,7 +6,7 @@ public class PlayerHealth : Health
     private void Start()
     {
         OnDead.AddListener(AddGravePoint);
-        OnDead.AddListener(GameManager.Instance.Lose);
+        OnDead.AddListener(PauseManager.Instance.Pause);
     }
 
     private void AddGravePoint()
